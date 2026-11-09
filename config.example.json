@@ -1,0 +1,28 @@
+{
+  "scanDepth": 3,
+  "terminal": "",
+  "editor": "code",
+  "reviewModel": "sonnet",
+  "commitModel": "haiku",
+  "roots": [
+    {
+      "name": "work",
+      "dir": "~/code/work",
+      "color": "blue",
+      "sshHost": "github-work",
+      "gitconfig": "~/.gitconfig-work",
+      "claudeConfigDir": "~/.claude-work",
+      "vault": "~/notes/work",
+      "ghConfigDir": "~/.config/gh-work"
+    },
+    {
+      "name": "personal",
+      "dir": "~/code/personal",
+      "color": "mauve",
+      "sshHost": "github-personal",
+      "gitconfig": "~/.gitconfig-personal"
+    }
+  ],
+  "extra": [{ "path": "~/somewhere/else/repo", "identity": "personal" }],
+  "hidden": []
+}
