@@ -1,0 +1,43 @@
+{
+  "name": "gitpicho",
+  "productName": "gitpicho",
+  "version": "0.3.0",
+  "description": "Desktop app to see and operate all your git repos at once, with per-workspace SSH identities and Claude-powered review",
+  "license": "MIT",
+  "main": "main.js",
+  "keywords": [
+    "git",
+    "electron",
+    "multi-repo",
+    "ssh",
+    "claude",
+    "code-review",
+    "desktop"
+  ],
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "start": "electron .",
+    "web": "node server.js"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "electron"
+    ]
+  },
+  "trustedDependencies": [
+    "electron"
+  ],
+  "devDependencies": {
+    "electron": "^44.7.2"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/gregorioafk/gitpicho.git"
+  },
+  "homepage": "https://miguelangelrojas.dev/gitpicho",
+  "bugs": {
+    "url": "https://github.com/gregorioafk/gitpicho/issues"
+  }
+}
