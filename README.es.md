@@ -34,12 +34,12 @@ gitpicho escanea las carpetas que le digas ("workspaces"), lista todos los repos
 
 ## Instalar
 
-Requisitos: **git** y **Node.js 20+**. Probado en Linux. macOS debería funcionar pero está sin probar; Windows todavía no.
+Requisitos: **git**, **Node.js 20+** y [**bun**](https://bun.sh). Probado en Linux. macOS debería funcionar pero está sin probar; Windows todavía no.
 
 ```bash
 git clone https://github.com/gregorioafk/gitpicho.git
 cd gitpicho
-npm install          # o: bun install / pnpm install
+bun install
 ./gitpicho           # app de escritorio (Electron)
 ```
 

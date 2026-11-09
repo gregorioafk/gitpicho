@@ -36,12 +36,12 @@ gitpicho scans the folders you tell it ("workspaces"), shows every repo in a sid
 
 ## Install
 
-Requirements: **git**, **Node.js 20+**. Tested on Linux. macOS should work but is untested; Windows is not supported yet.
+Requirements: **git**, **Node.js 20+** and [**bun**](https://bun.sh). Tested on Linux. macOS should work but is untested; Windows is not supported yet.
 
 ```bash
 git clone https://github.com/gregorioafk/gitpicho.git
 cd gitpicho
-npm install          # or: bun install / pnpm install
+bun install
 ./gitpicho           # desktop app (Electron)
 ```
 

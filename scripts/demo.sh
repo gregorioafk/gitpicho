@@ -76,7 +76,7 @@ publish "$d" "git@github-trabajo:acme/api-pagos.git"
 file "$d/src/pagos.js" "export function cobrar(monto, moneda = 'USD', cuotas = 1) {" "  if (monto <= 0) throw new Error('monto inválido');" "  if (cuotas < 1 || cuotas > 12) throw new Error('cuotas fuera de rango');" "  return { ok: true, monto, moneda, cuotas };" "}"
 git -C "$d" add src/pagos.js
 file "$d/src/reembolsos.js" "export function reembolsar(id) {" "  // TODO: llamar al proveedor" "  return { ok: true, id };" "}"
-file "$d/README.md" "# api-pagos" "API de cobros y reembolsos." "" "## Correr" "npm start"
+file "$d/README.md" "# api-pagos" "API de cobros y reembolsos." "" "## Correr" "bun start"
 
 # trabajo/web-tienda: 2 commits sin pushear
 d=$(repo trabajo web-tienda)

@@ -24,8 +24,8 @@ if [ "$(uname)" = "Darwin" ]; then
   ELECTRON="$DIR/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
 fi
 if [ ! -x "$ELECTRON" ]; then
-  # Algunos gestores (pnpm, bun) no corren el postinstall de electron: bajar el binario a mano.
-  [ -f "$DIR/node_modules/electron/install.js" ] || { echo "Falta instalar dependencias: corré 'npm install' en $DIR" >&2; exit 1; }
+  # Si el gestor no corrió el postinstall de electron: bajar el binario a mano.
+  [ -f "$DIR/node_modules/electron/install.js" ] || { echo "Falta instalar dependencias: corré 'bun install' en $DIR" >&2; exit 1; }
   node "$DIR/node_modules/electron/install.js" || exit 1
   exec "$0" "$@"
 fi
