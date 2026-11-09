@@ -1,0 +1,39 @@
+#!/usr/bin/env bash
+# Abre gitpicho como app de escritorio (Electron). `gitpicho --web` = modo navegador.
+set -u
+DIR="$(cd "$(dirname "$(readlink -f "$0")")" && pwd)"
+LOG_DIR="${XDG_STATE_HOME:-$HOME/.local/state}/gitpicho"
+mkdir -p "$LOG_DIR"
+LOG="$LOG_DIR/gitpicho.log"
+
+if [ "${1:-}" = "--web" ]; then
+  PORT="${PORT:-7777}"
+  URL="http://localhost:$PORT"
+  if ! curl -fs "$URL/api/ping" >/dev/null 2>&1; then
+    PORT="$PORT" nohup node "$DIR/server.js" >"$LOG" 2>&1 &
+    for _ in $(seq 25); do curl -fs "$URL/api/ping" >/dev/null 2>&1 && break; sleep 0.2; done
+  fi
+  if command -v xdg-open >/dev/null; then xdg-open "$URL" >/dev/null 2>&1 &
+  elif command -v open >/dev/null; then open "$URL"
+  else echo "gitpicho en $URL"; fi
+  exit 0
+fi
+
+ELECTRON="$(readlink -f "$DIR/node_modules/electron/dist/electron" 2>/dev/null)"
+if [ "$(uname)" = "Darwin" ]; then
+  ELECTRON="$DIR/node_modules/electron/dist/Electron.app/Contents/MacOS/Electron"
+fi
+if [ ! -x "$ELECTRON" ]; then
+  # Algunos gestores (pnpm, bun) no corren el postinstall de electron: bajar el binario a mano.
+  [ -f "$DIR/node_modules/electron/install.js" ] || { echo "Falta instalar dependencias: corré 'npm install' en $DIR" >&2; exit 1; }
+  node "$DIR/node_modules/electron/install.js" || exit 1
+  exec "$0" "$@"
+fi
+
+FLAGS=()
+# Ubuntu 23.10+ no deja usar el sandbox de Chromium sin perfil AppArmor (ver scripts/install-apparmor.sh).
+if [ "$(uname)" = "Linux" ] && [ ! -f /etc/apparmor.d/gitpicho ] && [ "$(cat /proc/sys/kernel/apparmor_restrict_unprivileged_userns 2>/dev/null)" = "1" ]; then
+  FLAGS+=(--no-sandbox)
+fi
+
+nohup "$ELECTRON" ${FLAGS[@]+"${FLAGS[@]}"} "$DIR" >"$LOG" 2>&1 &
